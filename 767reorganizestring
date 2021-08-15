@@ -1,0 +1,25 @@
+import heapq
+class Solution:
+    # time: O(NlogN)
+    def reorganizeString(self, s: str) -> str:
+        dict = {}
+        for char in s:
+            dict[char] = dict.get(char, 0) + 1
+        
+        maxHeap = []
+        for letter, frequency in dict.items():
+            heapq.heappush(maxHeap, (-frequency, letter))
+        
+        result = []
+        previousLetter = None
+        previousCount = 0
+        while maxHeap:
+            frequency, letter = heapq.heappop(maxHeap)
+            result.append(letter)
+            if previousCount != 0:
+                heapq.heappush(maxHeap, (previousCount, previousLetter))
+            previousLetter = letter
+            previousCount = frequency
+        result = ''.join(result)
+        return result if len(result) == len(s) else ""
+
