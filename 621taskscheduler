@@ -1,0 +1,26 @@
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        dict = {}
+        for letter in tasks:
+            dict[letter] = dict.get(letter, 0) + 1
+            
+        output, heap = 0, []
+        for key, val in dict.items():
+            heapq.heappush(heap, (-val, key))
+            
+        while heap:
+            i, temp = 0, []
+            while i <= n:
+                output += 1
+                if heap:
+                    nums, key = heapq.heappop(heap)
+                    nums += 1
+                    if nums < 0: 
+                        temp.append((nums, key))
+                if not heap and not temp: break
+                i += 1
+                
+            for key, val in temp:
+                heapq.heappush(heap, (key, val))
+                
+        return output
