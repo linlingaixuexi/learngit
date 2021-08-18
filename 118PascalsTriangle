@@ -1,0 +1,16 @@
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        if not numRows:
+            return []
+        
+        output = [[0] * (i + 1) for i in range(numRows)] 
+        output[0] = [1]
+        for layer in range(1, numRows):
+            for i in range(layer + 1):
+                if i == 0:
+                    output[layer][i] = output[layer - 1][i]
+                elif i == layer:
+                    output[layer][i] = output[layer - 1][i - 1]
+                else:
+                    output[layer][i] = output[layer - 1][i - 1] + output[layer - 1][i]
+        return output
