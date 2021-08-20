@@ -1,0 +1,37 @@
+class Solution:
+    def wordBreak(self, s: str, dict: List[str]) -> bool:
+        if not s:
+            return True
+        
+        if not dict:
+            return False
+        
+        max_length = len(max(dict, key = len))
+        return self.dfs(s, 0, max_length, dict, {})
+    
+        #递归三要素1:定义（从index开始的后缀字符串s[index...]能否划分成dict里的单词组合
+    def dfs(self, s, index, max_length, dict, memo):
+        if index in memo:
+            return memo[index]
+        
+        #递归三要素3:出口（已经划分到s的末尾（也就是说s里面组成的词全在dict里，返回true）
+        if index == len(s):
+            return True
+        
+        #递归三要素2:拆解
+        for end in range(index + 1, len(s) + 1):
+            #剪枝
+            if end - index > max_length:
+                break
+            word = s[index : end]
+            if word not in dict:
+                continue
+            if self.dfs(s, end, max_length, dict, memo):
+                return True
+            #？？在哪个地方
+            else:
+                memo[index] = False
+        
+        #无法实现划分，return False
+        return False
+        
