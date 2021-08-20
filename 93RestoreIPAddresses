@@ -1,0 +1,31 @@
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        if not 4 <= len(s) <= 12:
+            return []
+        
+        #递归的定义
+        #index表示当前数字的,curr表示到目前为止有几个数字
+        def helper(index, curr):
+            nonlocal result
+            #递归的退出条件,当curr里面存有4个数字且index走到最后一个数字
+            if len(curr) == 4:
+                if index == len(s):
+                    result.append('.'.join(curr))
+                return
+            
+            #递归的分解
+            num = ''
+            for i in range(index, min(index + 3, len(s))):
+                num += s[i]
+                
+                if num[0] == '0' and len(num) > 1:
+                    break
+                    
+                if 0 <= int(num) <= 255:
+                    curr.append(num)
+                    helper(i + 1, curr)
+                    curr.pop()
+                    
+        result = []
+        helper(0, [])
+        return result
