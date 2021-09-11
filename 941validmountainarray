@@ -1,0 +1,23 @@
+class Solution:
+    def validMountainArray(self, arr: List[int]) -> bool:
+        # time complexity: O(N)
+        # space complexity: O(1)
+        
+        # find peak index
+        peak_num = max(arr)
+        peak_index = arr.index(peak_num)
+        # return False if peak index occurs in the first or the last
+        if peak_index == 0 or peak_index == len(arr) - 1:
+            return False
+        else:
+            # traverse 0 to the peak index elements 
+            for i in range(0, peak_index):
+                if arr[i+1] <= arr[i]:
+                    return False
+                
+            # traverse peak index to the rightmost elements
+            for j in range(peak_index, len(arr) - 1):
+                if arr[j + 1] >= arr[j]:
+                    return False
+            
+        return True
