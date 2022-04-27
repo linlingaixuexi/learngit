@@ -5,4 +5,4 @@ class Solution:
         temp = []
         temp = nums[l-k:] + nums[:l-k]
         for i in range(len(temp)):
-            nums[i] = temp[i]
+            nums[i] = t[i]
