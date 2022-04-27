@@ -6,4 +6,4 @@ class Solution:
         temp = nums[l-k:] + nums[:l-k]
         for i in range(len(temp)):
             nums[i] = t[i]
-	# heeheehee test 00 branch here
+	# hooray, we fixed the conflicts
